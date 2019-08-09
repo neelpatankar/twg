@@ -2,6 +2,7 @@
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
+using TWG.Interface;
 using TWG.Resources;
 using Xamarin.Forms;
 
@@ -25,7 +26,11 @@ namespace TWG.ViewModels
         });
         public DelegateCommand MainPageCommand => new DelegateCommand(async () =>
         {
-            await navigationService.NavigateAsync("MainPage");
+            var apiresponce = Refit.RestService.For<IApi>("http://entdev-mosrv01.twg.pvt:8004");
+            var obj = new Model.TokenRequestModel() { deviceName = "POSTMAN", password = "WELCOME1", username = "RDHARA" };
+            var responce = await apiresponce.GetToken(obj);
+            var value = responce;
+           // await navigationService.NavigateAsync("MainPage");
         });
        
     }

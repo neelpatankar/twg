@@ -26,6 +26,7 @@ namespace TWG.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::ModernHttpClient.Resource.String.library_name = global::TWG.Droid.Resource.String.library_name;
 			global::Xamarin.Essentials.Resource.Attribute.alpha = global::TWG.Droid.Resource.Attribute.alpha;
 			global::Xamarin.Essentials.Resource.Attribute.coordinatorLayoutStyle = global::TWG.Droid.Resource.Attribute.coordinatorLayoutStyle;
 			global::Xamarin.Essentials.Resource.Attribute.font = global::TWG.Droid.Resource.Attribute.font;
@@ -7671,8 +7672,8 @@ namespace TWG.Droid
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f0b004e
-			public const int ApplicationName = 2131427406;
+			// aapt resource value: 0x7f0b004f
+			public const int ApplicationName = 2131427407;
 			
 			// aapt resource value: 0x7f0b0018
 			public const int abc_action_bar_home_description = 2131427352;
@@ -7811,6 +7812,9 @@ namespace TWG.Droid
 			
 			// aapt resource value: 0x7f0b0046
 			public const int hide_bottom_view_on_scroll_behavior = 2131427398;
+			
+			// aapt resource value: 0x7f0b004e
+			public const int library_name = 2131427406;
 			
 			// aapt resource value: 0x7f0b0000
 			public const int mr_button_content_description = 2131427328;
