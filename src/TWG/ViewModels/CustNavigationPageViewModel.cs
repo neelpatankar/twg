@@ -1,19 +1,18 @@
 ﻿using System;
-
+using Prism.Navigation;
+using Prism.Services;
+using TWG.Resources;
 using Xamarin.Forms;
 
 namespace TWG.ViewModels
 {
-    public class CustNavigationPageViewModel : ContentPage
+    public class CustNavigationPageViewModel : ViewModelBase
     {
-        public CustNavigationPageViewModel()
+        public CustNavigationPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService,
+                                 IDeviceService deviceService)
+            : base(navigationService, pageDialogService, deviceService)
         {
-            Content = new StackLayout
-            {
-                Children = {
-                    new Label { Text = "Hello ContentPage" }
-                }
-            };
+            Title = AppResources.MainPageTitle;
         }
     }
 }

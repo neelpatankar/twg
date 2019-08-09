@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using TWG.Resources;
 using TWG.Services;
 using TWG.Views;
@@ -8,14 +7,10 @@ using Prism;
 using Prism.Ioc;
 using Prism.Plugin.Popups;
 using Unity;
-using Prism.Unity;
-using FFImageLoading.Helpers;
-using TWG.Helpers;
-using Realms;
-using Realms.Sync;
 using Prism.Logging;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
+using TWG.ViewModels;
 
 namespace TWG
 {
@@ -63,16 +58,17 @@ namespace TWG
 
             //var serverURL = new Uri(Secrets.RealmServer);
             //var config = new SyncConfiguration(User.Current, serverURL);
-            var config = RealmConfiguration.DefaultConfiguration;
-            containerRegistry.GetContainer().RegisterType<Realm>(new InjectionFactory(c => Realm.GetInstance(config)));
-
+         
 
             // Navigating to "TabbedPage?createTab=ViewA&createTab=ViewB&createTab=ViewC will generate a TabbedPage
             // with three tabs for ViewA, ViewB, & ViewC
             // Adding `selectedTab=ViewB` will set the current tab to ViewB
+            
             containerRegistry.RegisterForNavigation<TabbedPage>();
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage>();
+            containerRegistry.RegisterForNavigation<LoginPage>();
+            containerRegistry.RegisterForNavigation<SettingPage>();
             containerRegistry.RegisterForNavigation<SplashScreenPage>();
         }
 

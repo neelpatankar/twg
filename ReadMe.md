@@ -85,4 +85,4 @@ For example, you may add `Manifest_AADClientId` to the build environment, and ha
 will only copy Manifests when building a Platform target such as iOS, Android, UWP.
 If the build definition builds more than one platform target, any variables that 
 should be different from one platform to the next should use platform specific
-tokens within the manifest.
+tokens within the manifest.# twg
