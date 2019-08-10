@@ -14,6 +14,7 @@ using Refit;
 using TWG.Helpers;
 using TWG.Interface;
 using TWG.Model;
+using TWG.Models;
 using Xamarin.Essentials;
 
 namespace TWG.Services
@@ -109,6 +110,42 @@ namespace TWG.Services
         {
             var cts = new CancellationTokenSource();
             var task = RemoteRequestAsync<HttpResponseMessage>(iApi.GetApi(Priority.UserInitiated).GetToken(tokenRequestModel));
+            runningTasks.Add(task.Id, cts);
+
+            return await task;
+        }
+
+        public async Task<HttpResponseMessage> Open(OpenRequestModel openRequestModel)
+        {
+            var cts = new CancellationTokenSource();
+            var task = RemoteRequestAsync<HttpResponseMessage>(iApi.GetApi(Priority.UserInitiated).Open(openRequestModel));
+            runningTasks.Add(task.Id, cts);
+
+            return await task;
+        }
+
+        public async Task<HttpResponseMessage> Fbform(FbformResponceModel fbformResponceModel)
+        {
+            var cts = new CancellationTokenSource();
+            var task = RemoteRequestAsync<HttpResponseMessage>(iApi.GetApi(Priority.UserInitiated).Fbform(fbformResponceModel));
+            runningTasks.Add(task.Id, cts);
+
+            return await task;
+        }
+
+        public async Task<HttpResponseMessage> AppStack(AppStackRequestModel appStackRequestModel)
+        {
+            var cts = new CancellationTokenSource();
+            var task = RemoteRequestAsync<HttpResponseMessage>(iApi.GetApi(Priority.UserInitiated).AppStack(appStackRequestModel));
+            runningTasks.Add(task.Id, cts);
+
+            return await task;
+        }
+
+        public async Task<HttpResponseMessage> Logout(LogoutRequestModel logoutRequestModel)
+        {
+            var cts = new CancellationTokenSource();
+            var task = RemoteRequestAsync<HttpResponseMessage>(iApi.GetApi(Priority.UserInitiated).Logout(logoutRequestModel));
             runningTasks.Add(task.Id, cts);
 
             return await task;

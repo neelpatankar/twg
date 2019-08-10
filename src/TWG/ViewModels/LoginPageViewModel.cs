@@ -13,6 +13,7 @@ using TWG.Services;
 using Acr.UserDialogs;
 using Xamarin.Forms;
 using System.Diagnostics;
+using TWG.Helpers;
 
 namespace TWG.ViewModels
 {
@@ -47,7 +48,8 @@ namespace TWG.ViewModels
             {
                 var response = await makeUpsResponse.Content.ReadAsStringAsync();
                 var json = await Task.Run(() => JsonConvert.DeserializeObject<TokenResponse>(response));
-                Debug.Write(json);
+                AppConstants.Token = json.userInfo.token;
+                await navigationService.NavigateAsync("MainPage");
             }
             else
             {
