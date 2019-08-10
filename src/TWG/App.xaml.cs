@@ -55,7 +55,7 @@ namespace TWG
         {
             // Register the Popup Plugin Navigation Service
             containerRegistry.RegisterPopupNavigationService();
-
+           
             //var serverURL = new Uri(Secrets.RealmServer);
             //var config = new SyncConfiguration(User.Current, serverURL);
          

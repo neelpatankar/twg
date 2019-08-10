@@ -5,6 +5,6 @@ namespace TWG.Interface
 {
     public interface IApiService<T>
     {
-        T GetToken(Priority prority);
+        T GetApi(Priority priority);
     }
 }

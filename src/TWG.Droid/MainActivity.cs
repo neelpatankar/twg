@@ -8,6 +8,7 @@ using Android.Widget;
 using Android.OS;
 using TWG.Helpers;
 using Xamarin.Forms.Platform.Android;
+using Acr.UserDialogs;
 
 namespace TWG.Droid
 {
@@ -23,7 +24,7 @@ namespace TWG.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(savedInstanceState);
-
+            UserDialogs.Init(this);
             global::Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.SetFlags("FastRenderers_Experimental");
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);

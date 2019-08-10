@@ -1,10 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 using TWG.Interface;
+using TWG.Model;
 using TWG.Resources;
+using TWG.Services;
+using Acr.UserDialogs;
 using Xamarin.Forms;
+using System.Diagnostics;
 
 namespace TWG.ViewModels
 {
@@ -21,18 +29,31 @@ namespace TWG.ViewModels
             this.navigationService = navigationService;
         }
 
-        public DelegateCommand Command => new DelegateCommand(async() => {
-         await   navigationService.NavigateAsync("SettingPage");
-        });
+        public DelegateCommand Command => new DelegateCommand(async () => await navigationService.NavigateAsync("SettingPage"));
+
         public DelegateCommand MainPageCommand => new DelegateCommand(async () =>
         {
-            var apiresponce = Refit.RestService.For<IApi>("http://entdev-mosrv01.twg.pvt:8004");
-            var obj = new Model.TokenRequestModel() { deviceName = "POSTMAN", password = "WELCOME1", username = "RDHARA" };
-            var responce = await apiresponce.GetToken(obj);
-            var value = responce;
+
+            await RunSafe(GetData());
+
            // await navigationService.NavigateAsync("MainPage");
         });
-       
+        async Task GetData()
+        {
+            var obj = new Model.TokenRequestModel() { deviceName = "POSTMAN", password = "WELCOME1", username = "RDHARA" };
+            var makeUpsResponse = await ApiManager.GetToken(obj);
+
+            if (makeUpsResponse.IsSuccessStatusCode)
+            {
+                var response = await makeUpsResponse.Content.ReadAsStringAsync();
+                var json = await Task.Run(() => JsonConvert.DeserializeObject<TokenResponse>(response));
+                Debug.Write(json);
+            }
+            else
+            {
+                await PageDialog.AlertAsync("Unable to get data", "Error", "Ok");
+            }
+        }
     }
 }
 

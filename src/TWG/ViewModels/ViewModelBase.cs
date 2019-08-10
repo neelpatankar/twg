@@ -6,11 +6,23 @@ using Prism;
 using Prism.AppModel;
 using Prism.Navigation;
 using Prism.Services;
+using TWG.Interface;
+using Acr.UserDialogs;
+using TWG.Services;
+using TWG.Helpers;
+using System.Diagnostics;
 
 namespace TWG.ViewModels
 {
     public class ViewModelBase : BindableBase, IActiveAware, INavigationAware, IDestructible, IConfirmNavigation, IConfirmNavigationAsync, IApplicationLifecycleAware, IPageLifecycleAware
     {
+
+        public IUserDialogs PageDialog = UserDialogs.Instance;
+        public IApiManager ApiManager;
+        IApiService<ITwgApi> makeUpApi = new ApiService<ITwgApi>(AppConstants.ApiUrl);
+
+
+
         protected IPageDialogService _pageDialogService { get; }
 
         protected IDeviceService _deviceService { get; }
@@ -23,6 +35,35 @@ namespace TWG.ViewModels
             _pageDialogService = pageDialogService;
             _deviceService = deviceService;
             _navigationService = navigationService;
+
+            ApiManager = new ApiManager(makeUpApi);
+        }
+
+        public async Task RunSafe(Task task, bool ShowLoading = true, string loadinMessage = null)
+        {
+            try
+            {
+                if (IsBusy) return;
+
+                IsBusy = true;
+
+                if (ShowLoading) UserDialogs.Instance.ShowLoading(loadinMessage ?? "Loading");
+
+                await task;
+            }
+            catch (Exception e)
+            {
+                IsBusy = false;
+                UserDialogs.Instance.HideLoading();
+                Debug.WriteLine(e.ToString());
+                await App.Current.MainPage.DisplayAlert("Eror", "Check your internet connection", "Ok");
+
+            }
+            finally
+            {
+                IsBusy = false;
+                if (ShowLoading) UserDialogs.Instance.HideLoading();
+            }
         }
 
         public string Title { get; set; }
