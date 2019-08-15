@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using Xamarin.Forms;
 
 namespace TWG.Helpers
 {
@@ -8,7 +9,7 @@ namespace TWG.Helpers
         // Put constants here that are not of a sensitive nature
         public static string ApiUrl = "http://entdev-mosrv01.twg.pvt:8004";
 
-        public static string Token = "";
+        private static string token = "";
         public static string ApiHostName
         {
             get
@@ -18,5 +19,39 @@ namespace TWG.Helpers
                 return apiHostName;
             }
         }
+        public static string AppToken
+        {
+            set
+            {
+                Xamarin.Forms.Application.Current.Properties["token"] = value;
+
+            }
+            get
+            {
+                if (Xamarin.Forms.Application.Current.Properties.ContainsKey("token"))
+                {
+                    return Xamarin.Forms.Application.Current.Properties["token"].ToString();
+                }
+                return token;
+            }
+        }
+
+        public static string Rid
+        {
+            set
+            {
+                Xamarin.Forms.Application.Current.Properties["rid"] = value;
+
+            }
+            get
+            {
+                if (Xamarin.Forms.Application.Current.Properties.ContainsKey("rid"))
+                {
+                    return Xamarin.Forms.Application.Current.Properties["rid"].ToString();
+                }
+                return token;
+            }
+        }
+
     }
 }

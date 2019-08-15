@@ -6,10 +6,10 @@
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              xmlns:windows="clr-namespace:Xamarin.Forms.PlatformConfiguration.WindowsSpecific;assembly=Xamarin.Forms.Core"
-          
+          Title="{Binding Title}"
              x:Class="TWG.Views.LoginPage">
   <ContentPage.ToolbarItems>
-    <ToolbarItem Name="setting" Command="{Binding Command}" Icon="Icons/cart.png">
+    <ToolbarItem  Command="{Binding Command}" Icon="settings.png">
     </ToolbarItem>
 </ContentPage.ToolbarItems>
     <ContentPage.Content>

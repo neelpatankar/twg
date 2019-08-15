@@ -126,6 +126,7 @@
     <LinkDescription Include="LinkerSettings.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </LinkDescription>
+    <Compile Include="UniqueIdIOS.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\AppIcon@1x.png" />

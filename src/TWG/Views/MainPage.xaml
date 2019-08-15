@@ -9,10 +9,15 @@
              Title="{Binding Title}"
              NavigationPage.HasBackButton="False"
              x:Class="TWG.Views.MainPage">
-      <ContentPage.Content>
-      <ListView>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem  Command="{Binding LogoutCommand}"
+                      Icon="settings.png">
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ListView>
 
-      </ListView>
+        </ListView>
 
     </ContentPage.Content>
 </ContentPage>

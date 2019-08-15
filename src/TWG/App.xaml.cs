@@ -55,15 +55,15 @@ namespace TWG
         {
             // Register the Popup Plugin Navigation Service
             containerRegistry.RegisterPopupNavigationService();
-           
+          
             //var serverURL = new Uri(Secrets.RealmServer);
             //var config = new SyncConfiguration(User.Current, serverURL);
-         
+
 
             // Navigating to "TabbedPage?createTab=ViewA&createTab=ViewB&createTab=ViewC will generate a TabbedPage
             // with three tabs for ViewA, ViewB, & ViewC
             // Adding `selectedTab=ViewB` will set the current tab to ViewB
-            
+
             containerRegistry.RegisterForNavigation<TabbedPage>();
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage>();

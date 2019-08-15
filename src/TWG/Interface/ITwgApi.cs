@@ -2,8 +2,8 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Refit;
-using TWG.Model;
 using TWG.Models;
+using TWG.ViewModels;
 
 namespace TWG.Interface
 {
@@ -15,11 +15,11 @@ namespace TWG.Interface
 
         [Headers("Content-Type:application/json")]
         [Post("/jderest/appstack")]
-        Task<HttpResponseMessage> Open([Body]OpenRequestModel openRequestModel);
+        Task<HttpResponseMessage> Open([Body]OpenFormRequestModel openRequestModel);
 
         [Headers("Content-Type:application/json")]
         [Post("/jderest/appstack")]
-        Task<HttpResponseMessage> Fbform([Body]FbformResponceModel fbformResponceModel);
+        Task<HttpResponseMessage> GetDataSet([Body]DataSetRequestModel fbformResponceModel);
 
         [Headers("Content-Type:application/json")]
         [Post("/jderest/appstack")]

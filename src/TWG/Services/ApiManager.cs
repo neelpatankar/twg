@@ -13,9 +13,8 @@ using Polly;
 using Refit;
 using TWG.Helpers;
 using TWG.Interface;
-using TWG.Model;
 using TWG.Models;
-using Xamarin.Essentials;
+using TWG.ViewModels;
 
 namespace TWG.Services
 {
@@ -71,15 +70,15 @@ namespace TWG.Services
 
             IsReachable = await _connectivity.IsRemoteReachable(AppConstants.ApiUrl);
 
-            if (!IsReachable)
-            {
-                var strngResponse = "There's not an internet connection";
-                data.StatusCode = HttpStatusCode.BadRequest;
-                data.Content = new StringContent(strngResponse);
+            //if (!IsReachable)
+            //{
+            //    var strngResponse = "There's not an internet connection";
+            //    data.StatusCode = HttpStatusCode.BadRequest;
+            //    data.Content = new StringContent(strngResponse);
 
-                _userDialogs.Toast(strngResponse, TimeSpan.FromSeconds(1));
-                return data;
-            }
+            //    _userDialogs.Toast(strngResponse, TimeSpan.FromSeconds(1));
+            //    return data;
+            //}
 
             data = await Policy
             .Handle<WebException>()
@@ -115,7 +114,7 @@ namespace TWG.Services
             return await task;
         }
 
-        public async Task<HttpResponseMessage> Open(OpenRequestModel openRequestModel)
+        public async Task<HttpResponseMessage> Open(OpenFormRequestModel openRequestModel)
         {
             var cts = new CancellationTokenSource();
             var task = RemoteRequestAsync<HttpResponseMessage>(iApi.GetApi(Priority.UserInitiated).Open(openRequestModel));
@@ -124,10 +123,10 @@ namespace TWG.Services
             return await task;
         }
 
-        public async Task<HttpResponseMessage> Fbform(FbformResponceModel fbformResponceModel)
+        public async Task<HttpResponseMessage> GetDataSet(DataSetRequestModel dataSetRequestModel)
         {
             var cts = new CancellationTokenSource();
-            var task = RemoteRequestAsync<HttpResponseMessage>(iApi.GetApi(Priority.UserInitiated).Fbform(fbformResponceModel));
+            var task = RemoteRequestAsync<HttpResponseMessage>(iApi.GetApi(Priority.UserInitiated).GetDataSet(dataSetRequestModel));
             runningTasks.Add(task.Id, cts);
 
             return await task;

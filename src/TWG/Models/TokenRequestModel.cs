@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace TWG.Model
+namespace TWG.Models
 {
     public class TokenRequestModel
     {

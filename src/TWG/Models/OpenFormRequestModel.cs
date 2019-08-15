@@ -1,7 +1,14 @@
 ﻿using System;
 namespace TWG.Models
 {
-    public class OpenRequestModel
+    public class FormRequest
+    {
+        public string version { get; set; }
+        public string formName { get; set; }
+        public string formServiceAction { get; set; }
+    }
+
+    public class OpenFormRequestModel
     {
         public string token { get; set; }
         public string deviceName { get; set; }
@@ -15,10 +22,5 @@ namespace TWG.Models
         public int stackId { get; set; }
         public int stateId { get; set; }
     }
-    public class FormRequest
-    {
-        public string version { get; set; }
-        public string formName { get; set; }
-        public string formServiceAction { get; set; }
-    }
+
 }
