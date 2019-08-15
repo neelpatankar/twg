@@ -1,43 +1,157 @@
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
+using TWG.CellModel;
+using TWG.Helpers;
 using TWG.Models;
+using System.Linq;
 using TWG.Resources;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace TWG.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
         IPageDialogService pageDialogService;
+        public ObservableCollection<CellDeginsModel> CellList { get; set; }
+
         public MainPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService,
                                  IDeviceService deviceService)
             : base(navigationService, pageDialogService, deviceService)
         {
-            Title = AppResources.MainPageTitle;
+            Title = Appconstant.MainPageTitle;
             this.pageDialogService = pageDialogService;
-        }
 
-        public DelegateCommand LogoutCommand => new DelegateCommand(async () => {
-          
-                var answer = await pageDialogService.DisplayAlertAsync("Question?", "Would you like to play a game", "Yes", "No");
-                Debug.WriteLine("Answer: " + answer); // writes true or false to the console
-          
+        }
+        public DelegateCommand RefreshCommand => new DelegateCommand(async () =>
+        {
+
+            await RunSafe(Griddata());
+
         });
 
-        async Task GetGridData() {
+        public DelegateCommand LogoutCommand => new DelegateCommand(async () =>
+        {
 
-            var makeUpsResponse = await ApiManager.GetDataSet(new Models.DataSetRequestModel());
-            if (makeUpsResponse.IsSuccessStatusCode)
+            var answer = await pageDialogService.DisplayAlertAsync("Question?", "Would you like to play a game", "Yes", "No");
+            if (answer)
             {
-                var apiresponce = await makeUpsResponse.Content.ReadAsStringAsync();
-                var modelserializaton = await Task.Run(() => JsonConvert.DeserializeObject<OpenFormResponceModel>(apiresponce));
-          
+                await RunSafe(CloseFormAsync());
+            }// writes true or false to the console
+
+        });
+
+        async Task Griddata()
+        {
+            var gridData = new DataSetRequestModel();
+            gridData.token = AppConstants.AppToken;
+            gridData.deviceName = "POSTMAN";
+            gridData.aliasNaming = true;
+            gridData.action = "execute";
+            gridData.formServiceAction = "R";
+            gridData.allowCache = true;
+
+            var actionrequest = new ActionRequest();
+
+            IList<FormAction> formActionsList = new List<FormAction>();
+            var form = new FormAction();
+
+            form.command = "SetControlValue";
+            form.controlID = "76";
+            form.value = "07/25/2017";
+            formActionsList.Add(form);
+
+            form.command = "SetControlValue";
+            form.controlID = "65";
+            form.value = "07/27/2017";
+            formActionsList.Add(form);
+
+            form.command = "SetControlValue";
+            form.controlID = "27";
+            form.value = "30";
+            formActionsList.Add(form);
+
+            form.command = "DoAction";
+            form.controlID = "15";
+
+            formActionsList.Add(form);
+            actionrequest.formActions = formActionsList;
+
+            actionrequest.formOID = "W5540G37A";
+
+
+            gridData.actionRequest = actionrequest;
+            gridData.stackId = 1;
+            gridData.stateId = 1;
+            gridData.rid = AppConstants.Rid;
+
+            var gridResponse = await ApiManager.GetDataSet(gridData);
+            if (gridResponse.IsSuccessStatusCode)
+            {
+                var responce = await gridResponse.Content.ReadAsStringAsync();
+                var modelserializaton = await Task.Run(() => JsonConvert.DeserializeObject<GridResponceModel>(responce));
+                IList<CellDeginsModel> cellDeginsList = new List<CellDeginsModel>();
+                foreach (var item in modelserializaton.fs_P5540G37_W5540G37A.data.gridData.rowset)
+                {
+                    var cell = new CellDeginsModel();
+                    cell.Name = item.z_ALPH_51.title;
+                    cell.Var = item.z_VARCODE_43.internalValue;
+                    cell.B = item.z_BLSCD2_53.internalValue;
+                    cell.DT = item.z_AWTDOC_56.internalValue;
+                    cell.GT = item.z_GRSWTIN_47.internalValue.ToString();
+                    cell.NT = item.z_QTRC_46.internalValue.ToString();
+                    cell.BX = item.z_55BAVG_48.internalValue.ToString();
+                    cell.MOG = item.z_55MOGPCT_49.internalValue.ToString();
+                    cellDeginsList.Add(cell);
+                }
+                CellList = new ObservableCollection<CellDeginsModel>();
+                cellDeginsList?.ForEach((p) => CellList.Add(p));
             }
 
+        }
+
+        async Task LogoutAsync()
+        {
+
+
+            var LogoutResponce = await ApiManager.Logout(new LogoutRequestModel() { token = AppConstants.AppToken });
+            if (LogoutResponce.IsSuccessStatusCode)
+            {
+                await _navigationService.GoBackToRootAsync();
+            }
+
+        }
+        async Task CloseFormAsync()
+        {
+
+            var CloseResponce = await ApiManager.AppStack(new AppStackRequestModel()
+            {
+                action = "close",
+                token = AppConstants.AppToken,
+                deviceName = "POSTMAN",
+                aliasNaming = true,
+                allowCache = true,
+                rid = AppConstants.Rid,
+                stackId = 1,
+                stateId = 2
+            });
+            if (CloseResponce.IsSuccessStatusCode)
+            {
+                await RunSafe(LogoutAsync());
+            }
+
+        }
+        public async override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            await RunSafe(Griddata());
         }
         public override void OnNavigatingTo(INavigationParameters parameters)
         {

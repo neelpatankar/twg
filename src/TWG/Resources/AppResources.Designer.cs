@@ -17,7 +17,7 @@ namespace TWG.Resources
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class AppResources
+    internal class Appconstant
     {
 
         private static System.Resources.ResourceManager resourceMan;
@@ -25,7 +25,7 @@ namespace TWG.Resources
         private static System.Globalization.CultureInfo resourceCulture;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal AppResources()
+        internal Appconstant()
         {
         }
 
@@ -36,7 +36,7 @@ namespace TWG.Resources
             {
                 if (object.Equals(null, resourceMan))
                 {
-                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("TWG.Resources.AppResources", typeof(AppResources).GetTypeInfo().Assembly);
+                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("TWG.Resources.AppResources", typeof(Appconstant).GetTypeInfo().Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

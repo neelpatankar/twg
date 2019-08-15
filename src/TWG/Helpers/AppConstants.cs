@@ -8,7 +8,7 @@ namespace TWG.Helpers
     {
         // Put constants here that are not of a sensitive nature
         public static string ApiUrl = "http://entdev-mosrv01.twg.pvt:8004";
-
+        public static string verison = "TWG0001";
         private static string token = "";
         public static string ApiHostName
         {

@@ -30,6 +30,4 @@ namespace TWG.Models
         public int stateId { get; set; }
         public string rid { get; set; }
     }
-
-
 }

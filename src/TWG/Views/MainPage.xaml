@@ -6,7 +6,8 @@
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              xmlns:windows="clr-namespace:Xamarin.Forms.PlatformConfiguration.WindowsSpecific;assembly=Xamarin.Forms.Core"
-             Title="{Binding Title}"
+             xmlns:dataTemplateSelector="clr-namespace:TWG.DataTemplateSelector"
+             Title="Grid Data"
              NavigationPage.HasBackButton="False"
              x:Class="TWG.Views.MainPage">
     <ContentPage.ToolbarItems>
@@ -14,10 +15,39 @@
                       Icon="settings.png">
         </ToolbarItem>
     </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <dataTemplateSelector:GridDataTemplateSelector x:Key="GridTemplateSelector" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <ListView>
+        <StackLayout>
+            <!--<Entry></Entry>
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="FillAndExpand">
+                <Label></Label>
+                <DatePicker></DatePicker>
+                <Label></Label>
+                <DatePicker></DatePicker>
+            </StackLayout>
+            <StackLayout  Orientation="Horizontal"
+                          HorizontalOptions="FillAndExpand">
+                <Entry></Entry>
+                <Button></Button>
+            </StackLayout>-->
+            <ListView  HorizontalOptions="FillAndExpand"
+                       VerticalOptions="FillAndExpand"
+                       Grid.Column="0"
+                       Grid.Row="1"
+                       x:Name="ItemsListView"
+                       ItemTemplate="{StaticResource GridTemplateSelector}"
+                       HasUnevenRows="true"
+                       RefreshCommand="{Binding RefreshCommand}"
+                       ItemsSource="{Binding CellList}"
+                       CachingStrategy="RecycleElement"
+                       IsPullToRefreshEnabled="true">
 
-        </ListView>
-
+            </ListView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

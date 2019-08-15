@@ -11,6 +11,12 @@ using Prism.Logging;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using TWG.ViewModels;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 
 namespace TWG
 {
@@ -46,7 +52,7 @@ namespace TWG
 #endif
 
             LogUnobservedTaskExceptions();
-            AppResources.Culture = CrossMultilingual.Current.DeviceCultureInfo;
+            Appconstant.Culture = CrossMultilingual.Current.DeviceCultureInfo;
 
             await NavigationService.NavigateAsync("SplashScreenPage");
         }
@@ -74,6 +80,10 @@ namespace TWG
 
         protected override void OnStart()
         {
+            AppCenter.Start("android=998b0002-7dc2-4891-8014-a06cc9f74a22;" +
+                  "uwp={Your UWP App secret here};" +
+                  "ios={Your iOS App secret here}",
+                  typeof(Analytics), typeof(Crashes));
             // Handle when your app starts
         }
 
