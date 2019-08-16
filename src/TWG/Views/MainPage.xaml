@@ -6,8 +6,9 @@
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              xmlns:windows="clr-namespace:Xamarin.Forms.PlatformConfiguration.WindowsSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
              xmlns:dataTemplateSelector="clr-namespace:TWG.DataTemplateSelector"
-             Title="Grid Data"
+             Title="All weigh tag data inquiry"
              NavigationPage.HasBackButton="False"
              x:Class="TWG.Views.MainPage">
     <ContentPage.ToolbarItems>
@@ -21,23 +22,40 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
-            <!--<Entry></Entry>
-            <StackLayout Orientation="Horizontal"
-                         HorizontalOptions="FillAndExpand">
-                <Label></Label>
-                <DatePicker></DatePicker>
-                <Label></Label>
-                <DatePicker></DatePicker>
-            </StackLayout>
-            <StackLayout  Orientation="Horizontal"
-                          HorizontalOptions="FillAndExpand">
-                <Entry></Entry>
-                <Button></Button>
-            </StackLayout>-->
+        <Grid RowSpacing="0" ColumnSpacing="0">
+            <Grid.RowDefinitions>
+                 <RowDefinition Height="*" />
+                <RowDefinition Height="2*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" RowSpacing="0" ColumnSpacing="0" Padding="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="17" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                </Grid.RowDefinitions>
+                <Label Text="Start date" HeightRequest="10" FontSize="Small" 
+                       Grid.Column="0"
+                       Grid.Row="0" />
+                <Label Text="End date" FontSize="Small" HeightRequest="10"
+                       Grid.Column="1"
+                       Grid.Row="0" />
+                <DatePicker Grid.Row="1" VerticalOptions="FillAndExpand" FontSize="Small" HeightRequest="15" HorizontalOptions="FillAndExpand"  Date="{Binding startDate , Mode=TwoWay}" MaximumDate="{x:Static sys:DateTime.Now}"
+                            Grid.Column="0" />
+                <DatePicker Grid.Row="1" FontSize="Small"  HeightRequest="15" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" MaximumDate="{x:Static sys:DateTime.Now}"  Date="{Binding endDate, Mode=TwoWay}"
+                            Grid.Column="1" />
+                <Entry HeightRequest="28" Placeholder="Crush site" FontSize="Small" Text="{Binding crushID}"
+                       Grid.Column="0" 
+                       Grid.Row="2" />
+                <Button HeightRequest="28" Text="Search" FontSize="Small" Command="{Binding RefreshCommand}"
+                        Grid.Column="1"
+                        Grid.Row="2" />
+            </Grid>
             <ListView  HorizontalOptions="FillAndExpand"
                        VerticalOptions="FillAndExpand"
-                       Grid.Column="0"
                        Grid.Row="1"
                        x:Name="ItemsListView"
                        ItemTemplate="{StaticResource GridTemplateSelector}"
@@ -48,6 +66,6 @@
                        IsPullToRefreshEnabled="true">
 
             </ListView>
-        </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

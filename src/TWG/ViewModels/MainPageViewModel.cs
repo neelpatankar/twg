@@ -13,12 +13,19 @@ using System.Linq;
 using TWG.Resources;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
+using System;
 
 namespace TWG.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
         IPageDialogService pageDialogService;
+
+        public DateTime startDate { get; set; } = DateTime.Now;
+        public DateTime endDate { get; set; } = DateTime.Now;
+
+        public string crushID { get; set; }
+        public DateTime PropertyMaximumDate = DateTime.Now;
         public ObservableCollection<CellDeginsModel> CellList { get; set; }
 
         public MainPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService,
@@ -39,7 +46,7 @@ namespace TWG.ViewModels
         public DelegateCommand LogoutCommand => new DelegateCommand(async () =>
         {
 
-            var answer = await pageDialogService.DisplayAlertAsync("Question?", "Would you like to play a game", "Yes", "No");
+            var answer = await pageDialogService.DisplayAlertAsync("Alert", "Would you like to Logout from application", "Yes", "No");
             if (answer)
             {
                 await RunSafe(CloseFormAsync());
@@ -64,17 +71,17 @@ namespace TWG.ViewModels
 
             form.command = "SetControlValue";
             form.controlID = "76";
-            form.value = "07/25/2017";
+            form.value = startDate.ToString("MM/dd/yyyy");
             formActionsList.Add(form);
 
             form.command = "SetControlValue";
             form.controlID = "65";
-            form.value = "07/27/2017";
+            form.value = endDate.ToString("MM/dd/yyyy");
             formActionsList.Add(form);
 
             form.command = "SetControlValue";
             form.controlID = "27";
-            form.value = "30";
+            form.value = crushID;
             formActionsList.Add(form);
 
             form.command = "DoAction";
@@ -85,13 +92,14 @@ namespace TWG.ViewModels
 
             actionrequest.formOID = "W5540G37A";
 
-
             gridData.actionRequest = actionrequest;
             gridData.stackId = 1;
             gridData.stateId = 1;
             gridData.rid = AppConstants.Rid;
 
             var gridResponse = await ApiManager.GetDataSet(gridData);
+            CellList = new ObservableCollection<CellDeginsModel>();
+            CellList.Clear();
             if (gridResponse.IsSuccessStatusCode)
             {
                 var responce = await gridResponse.Content.ReadAsStringAsync();
@@ -100,7 +108,7 @@ namespace TWG.ViewModels
                 foreach (var item in modelserializaton.fs_P5540G37_W5540G37A.data.gridData.rowset)
                 {
                     var cell = new CellDeginsModel();
-                    cell.Name = item.z_ALPH_51.title;
+                    cell.Name = item.z_ALPH_51.longName;
                     cell.Var = item.z_VARCODE_43.internalValue;
                     cell.B = item.z_BLSCD2_53.internalValue;
                     cell.DT = item.z_AWTDOC_56.internalValue;
@@ -110,11 +118,39 @@ namespace TWG.ViewModels
                     cell.MOG = item.z_55MOGPCT_49.internalValue.ToString();
                     cellDeginsList.Add(cell);
                 }
-                CellList = new ObservableCollection<CellDeginsModel>();
+              
                 cellDeginsList?.ForEach((p) => CellList.Add(p));
+            }
+            else
+            {
+                await PageDialog.AlertAsync("Unable to get data", "Error", "Ok");
             }
 
         }
+        //async Task OpenForm()
+        //{
+        //    var openform = new OpenFormRequestModel();
+        //    openform.token = AppConstants.AppToken;
+        //    openform.deviceName = "POSTMAN";
+        //    openform.formServiceAction = "R";
+        //    openform.allowCache = true;
+        //    openform.aliasNaming = true;
+        //    openform.version = AppConstants.verison;
+        //    openform.formName = "P5540G37_W5540G37A";
+        //    openform.action = "open";
+        //    openform.formRequest = new FormRequest() { version = AppConstants.verison, formName = "P5540G37_W5540G37A", formServiceAction = "R" };
+        //    openform.stackId = 0;
+        //    openform.stateId = 0;
+
+        //    var openformobj = await ApiManager.Open(openform);
+        //    if (openformobj.IsSuccessStatusCode)
+        //    {
+        //        var apiresponce = await openformobj.Content.ReadAsStringAsync();
+        //        var modelserializaton = await Task.Run(() => JsonConvert.DeserializeObject<OpenFormResponceModel>(apiresponce));
+        //        AppConstants.Rid = modelserializaton.rid;
+        //        await RunSafe(Griddata());
+        //    }
+        //}
 
         async Task LogoutAsync()
         {
