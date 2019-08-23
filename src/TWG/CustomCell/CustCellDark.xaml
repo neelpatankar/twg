@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms"
+          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          Height="150"
+          x:Class="TWG.CustomCell.CustCellDark">
+
+    <ViewCell.View>
+        <Frame 
+              
+               BackgroundColor="{StaticResource CellDark}">
+            <FlexLayout Padding="5"
+                        Direction="Column">
+
+                <Label Text="{Binding Name}"
+                       FontAttributes="Bold"
+                          FontSize="Default"
+                       TextColor="{StaticResource WhiteColor}" />
+
+                <FlexLayout FlexLayout.Grow="3">
+                    <Label Text="{Binding Var}"
+                           FlexLayout.Grow="1"
+                           TextColor="{StaticResource WhiteColor}"
+                           FontAttributes="Bold"
+                           FontSize="Default" />
+                    <Label Text="{Binding B}"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource WhiteColor}"
+                           FlexLayout.Grow="1"
+                           FontSize="Default" />
+                    <Label Text="{Binding DT}"
+                           TextColor="{StaticResource WhiteColor}"
+                           FontAttributes="Bold"
+                           FlexLayout.Grow="1"
+                           FontSize="Default" />
+                </FlexLayout>
+                <FlexLayout FlexLayout.Grow="4">
+                    <Label Text="{Binding GT}"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource WhiteColor}"
+                           FlexLayout.Grow="1"
+                           FontSize="Default" />
+                    <Label Text="{Binding NT}"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource WhiteColor}"
+                           FlexLayout.Grow="1"
+                           FontSize="Default" />
+                    <Label Text="{Binding BX}"
+                           TextColor="{StaticResource WhiteColor}"
+                           FontAttributes="Bold"
+                           FlexLayout.Grow="1"
+                           FontSize="Default" />
+                    <Label Text="{Binding MOG}"
+                           TextColor="{StaticResource WhiteColor}"
+                           FontAttributes="Bold"
+                           FlexLayout.Grow="1"
+                           FontSize="Default" />
+                </FlexLayout>
+            </FlexLayout>
+        </Frame>
+    </ViewCell.View>
+</ViewCell>

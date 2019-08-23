@@ -1,77 +1,60 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-              xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
              xmlns:i18n="clr-namespace:TWG.i18n;assembly=TWG"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              xmlns:windows="clr-namespace:Xamarin.Forms.PlatformConfiguration.WindowsSpecific;assembly=Xamarin.Forms.Core"
              x:Class="TWG.Views.LoginPage">
-  <ContentPage.ToolbarItems>
-    <ToolbarItem  Command="{Binding Command}" Icon="settings.png">
-    </ToolbarItem>
-</ContentPage.ToolbarItems>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem  Command="{Binding Command}"
+                      Icon="Setting.png">
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <Grid BackgroundColor="White" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <FlexLayout JustifyContent="Center"
+                    Direction="Column"
+                    AlignItems="Center"
+                    Margin="30,0,30,0">
+            <Image Source="applogo.png"
+                   HeightRequest="140"
+                   WidthRequest="140"
+                   FlexLayout.AlignSelf="Center"
+                   BackgroundColor="Transparent" />
+            <Label TextColor="Black"
+                   FontAttributes="Bold"
+                   Text="Username"
+                   FlexLayout.AlignSelf="Center"
+                   FontSize="20" />
+            <Entry ReturnType="Next"
+                   FontSize="Medium"
+                   Text="{Binding username}"
+                   FlexLayout.AlignSelf="Stretch"
+                   HorizontalOptions="CenterAndExpand"
+                   TextColor="Black" />
+            <Label TextColor="Black"
+                   FontAttributes="Bold"
+                   Text="Password"
+                   FlexLayout.AlignSelf="Center"
+                   FontSize="20" />
+            <Entry  ReturnType="Done"
+                    Text="{Binding password}"
+                    IsPassword="True"
+                    FontSize="Medium"
+                    FlexLayout.AlignSelf="Stretch"
+                    HorizontalOptions="CenterAndExpand"
+                    TextColor="Black" />
+            <Button  FontSize="Medium"
+                     TextColor="White"
+                     BorderColor="Black"
+                    BackgroundColor="{StaticResource ButtonColor}"
+                     CornerRadius="5"
+                     FlexLayout.AlignSelf="Stretch"
+                     HorizontalOptions="CenterAndExpand"
+                     Text="LOg in"
+                     Command="{Binding MainPageCommand}" />
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="50"/>
-            </Grid.RowDefinitions>
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0,10,0,0" Grid.Row="0">
-                <Label Text="TWG"/>
-                <Image Source="mediaw.png" Opacity="0.6" VerticalOptions="Start" Margin="0,3,0,0"/>
-                    
-                </StackLayout>
-
-            <Grid Grid.Row="1" Margin="20,0,20,0">
-
-                <Grid.RowDefinitions>
-
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="*"/>
-    
-                </Grid.RowDefinitions>
-                <Image Source="Samir.png" HeightRequest="70" VerticalOptions="EndAndExpand"/>
-                <Entry Grid.Row="1" Placeholder="User ID"  Text="{Binding username}" PlaceholderColor="#bababa" FontSize="16"/>
-                <Entry Grid.Row="2" Placeholder="Password" Text="{Binding password}" IsPassword="True" PlaceholderColor="#bababa" FontSize="16"/>
-                <Button Text="LogIn" BackgroundColor="#3897f0" TextColor="White" HeightRequest="50" VerticalOptions="Start" Grid.Row="3" Command="{Binding MainPageCommand}"/>
-
-                <Grid Grid.Row="5">
-
-                    <Grid.ColumnDefinitions>
-
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                        
-
-
-                    </Grid.ColumnDefinitions>
-                    <Label BackgroundColor="#bababa" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
-                    <!--<Label Text="" Grid.Column="1" VerticalOptions="Center" Margin="10,0,10,0"/>-->
-                    <Image Source="gf.png" Grid.Column="1" VerticalOptions="Center" Margin="10,0,10,0"/>
-
-                    <Label BackgroundColor="#bababa" Grid.Column="2" HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
-                </Grid>
-
-                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Grid.Row="6">
-              
-                </StackLayout>
-
-            </Grid>
-
-          
-            
-            
-        </Grid>
-        
-
+        </FlexLayout>
     </ContentPage.Content>
 </ContentPage>

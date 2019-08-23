@@ -74,27 +74,34 @@ namespace TWG.ViewModels
             form.value = startDate.ToString("MM/dd/yyyy");
             formActionsList.Add(form);
 
-            form.command = "SetControlValue";
-            form.controlID = "65";
-            form.value = endDate.ToString("MM/dd/yyyy");
-            formActionsList.Add(form);
+            var form1 = new FormAction();
+            form1.command = "SetControlValue";
+            form1.controlID = "65";
+            form1.value = startDate.ToString("MM/dd/yyyy");
+           
 
-            form.command = "SetControlValue";
-            form.controlID = "27";
-            form.value = crushID;
-            formActionsList.Add(form);
+            var form2 = new FormAction();
+            form2.command = "SetControlValue";
+            form2.controlID = "27";
+            form2.value = crushID;
+           
 
-            form.command = "DoAction";
-            form.controlID = "15";
+            var form3 = new FormAction();
+            form3.command = "DoAction";
+            form3.controlID = "15";
 
             formActionsList.Add(form);
+            formActionsList.Add(form1);
+            formActionsList.Add(form2);
+            formActionsList.Add(form3);
+
             actionrequest.formActions = formActionsList;
 
             actionrequest.formOID = "W5540G37A";
 
             gridData.actionRequest = actionrequest;
-            gridData.stackId = 1;
-            gridData.stateId = 1;
+            gridData.stackId = AppConstants.stackId;
+            gridData.stateId = AppConstants.stateId;
             gridData.rid = AppConstants.Rid;
 
             var gridResponse = await ApiManager.GetDataSet(gridData);
@@ -104,11 +111,16 @@ namespace TWG.ViewModels
             {
                 var responce = await gridResponse.Content.ReadAsStringAsync();
                 var modelserializaton = await Task.Run(() => JsonConvert.DeserializeObject<GridResponceModel>(responce));
+
+                AppConstants.stackId = modelserializaton.stackId;
+                AppConstants.stateId = modelserializaton.stateId;
+                AppConstants.Rid = modelserializaton.rid;
+
                 IList<CellDeginsModel> cellDeginsList = new List<CellDeginsModel>();
                 foreach (var item in modelserializaton.fs_P5540G37_W5540G37A.data.gridData.rowset)
                 {
                     var cell = new CellDeginsModel();
-                    cell.Name = item.z_ALPH_51.longName;
+                    cell.Name = item.z_ALPH_51.internalValue;
                     cell.Var = item.z_VARCODE_43.internalValue;
                     cell.B = item.z_BLSCD2_53.internalValue;
                     cell.DT = item.z_AWTDOC_56.internalValue;
@@ -159,6 +171,10 @@ namespace TWG.ViewModels
             var LogoutResponce = await ApiManager.Logout(new LogoutRequestModel() { token = AppConstants.AppToken });
             if (LogoutResponce.IsSuccessStatusCode)
             {
+                AppConstants.AppToken = "";
+                AppConstants.stackId = 1;
+                AppConstants.stateId = 1;
+                AppConstants.Rid = "";
                 await _navigationService.GoBackToRootAsync();
             }
 

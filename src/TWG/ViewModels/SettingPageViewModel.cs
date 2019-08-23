@@ -21,26 +21,24 @@ namespace TWG.ViewModels
                 AppConstants.ApiUrl = value;
             }
         }
+        private string _verison; 
 
-        public string version
+        public string Verison
         {
-            get
-            {
-                return AppConstants.verison;
-            }
-            set
-            {
-                AppConstants.verison = value;
-            }
+            get { return _verison; }
+            set { SetProperty(ref _verison, value); }
         }
+
         public SettingPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService,
                                   IDeviceService deviceService)
              : base(navigationService, pageDialogService, deviceService)
         {
             this.navigationService = navigationService;
+          Verison = AppConstants.Verison;
         }
         public DelegateCommand CloseCommand => new DelegateCommand(async () =>
         {
+            AppConstants.Verison =Verison;
             await navigationService.GoBackAsync();
         });
 

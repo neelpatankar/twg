@@ -15,8 +15,9 @@ namespace TWG.ViewModels
         public bool Visible { get; set; } = false;
         private IDevice device;
 
-        public string username { get; set; } = "RDHARA";
-        public string password { get; set; } = "WELCOME1";
+       
+        public string username { get; set; }
+        public string password { get; set; }
 
         private INavigationService navigationService;
         public LoginPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService,
@@ -26,12 +27,13 @@ namespace TWG.ViewModels
             Title = Appconstant.MainPageTitle;
             this.navigationService = navigationService;
             this.device = device;
-          
+            username = AppConstants.Username;
+            password = AppConstants.Password;
         }
 
         public DelegateCommand Command => new DelegateCommand(async () => await navigationService.NavigateAsync("SettingPage"));
 
-      
+
         public DelegateCommand MainPageCommand => new DelegateCommand(async () =>
         {
             await RunSafe(GetData());
@@ -45,10 +47,10 @@ namespace TWG.ViewModels
             openform.formServiceAction = "R";
             openform.allowCache = true;
             openform.aliasNaming = true;
-            openform.version = AppConstants.verison;
+            openform.version = AppConstants.Verison;
             openform.formName = "P5540G37_W5540G37A";
             openform.action = "open";
-            openform.formRequest = new FormRequest() { version = AppConstants.verison, formName = "P5540G37_W5540G37A", formServiceAction = "R" };
+            openform.formRequest = new FormRequest() { version = AppConstants.Verison, formName = "P5540G37_W5540G37A", formServiceAction = "R" };
             openform.stackId = 0;
             openform.stateId = 0;
 
@@ -63,6 +65,9 @@ namespace TWG.ViewModels
         }
         async Task GetData()
         {
+
+            AppConstants.Username = username;
+            AppConstants.Password = password;
             var obj = new TokenRequestModel() { deviceName = "POSTMAN", password = this.password, username = this.username };
             var TokenResponse = await ApiManager.GetToken(obj);
 

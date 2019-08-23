@@ -32,14 +32,14 @@
             <Entry VerticalOptions="StartAndExpand"
                    HorizontalOptions="StartAndExpand"
                    Placeholder="Please enter url"
-                   Text="{Binding AppUrl}" />
+                   Text="{Binding AppUrl,Mode=TwoWay}" />
 
-            <Label VerticalOptions="StartAndExpand"
-                   HorizontalOptions="StartAndExpand"
+            <Label VerticalOptions="FillAndExpand"
+                   HorizontalOptions="FillAndExpand"
                    Text="Version" />
-            <Entry VerticalOptions="StartAndExpand"
-                   HorizontalOptions="StartAndExpand"
-                   Placeholder="{Binding version}" />
+            <Entry VerticalOptions="FillAndExpand"
+                   HorizontalOptions="FillAndExpand"
+                   Text="{Binding Verison,Mode=TwoWay}" />
 
             <Button VerticalOptions="Center"
                     HorizontalOptions="Center"
