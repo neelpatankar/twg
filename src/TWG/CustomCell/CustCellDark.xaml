@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ViewCell xmlns="http://xamarin.com/schemas/2014/forms"
           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-          Height="150"
+
+          Height="110"
           x:Class="TWG.CustomCell.CustCellDark">
 
     <ViewCell.View>
@@ -33,7 +34,7 @@
                            FlexLayout.Grow="1"
                            FontSize="Default" />
                 </FlexLayout>
-                <FlexLayout FlexLayout.Grow="4">
+                <FlexLayout FlexLayout.Grow="4" Padding="0,30,0,0">
                     <Label Text="{Binding GT}"
                            FontAttributes="Bold"
                            TextColor="{StaticResource WhiteColor}"

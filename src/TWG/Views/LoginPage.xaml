@@ -48,11 +48,12 @@
             <Button  FontSize="Medium"
                      TextColor="White"
                      BorderColor="Black"
+                    Margin="0,10,0,0"
                     BackgroundColor="{StaticResource ButtonColor}"
                      CornerRadius="5"
                      FlexLayout.AlignSelf="Stretch"
                      HorizontalOptions="CenterAndExpand"
-                     Text="LOg in"
+                     Text="Log in"
                      Command="{Binding MainPageCommand}" />
 
         </FlexLayout>
