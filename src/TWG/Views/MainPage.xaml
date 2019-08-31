@@ -33,9 +33,9 @@
                   ColumnSpacing="0"
                   Padding="5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="80" />
-                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition Width="100" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="17" />
@@ -73,7 +73,7 @@
                        Grid.Row="1" />
                 <Button HeightRequest="28"
                         Text="Search"
-                       
+                       FontSize="Medium"
                         Command="{Binding RefreshCommand}"
                         Grid.Column="2"
                         Grid.Row="1" />

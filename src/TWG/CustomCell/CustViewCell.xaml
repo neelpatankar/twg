@@ -4,53 +4,60 @@
           x:Class="TWG.CustomCell.CustViewCell"
           Height="110">
     <ViewCell.View>
-        <Frame 
-              
-               BackgroundColor="{StaticResource CellLight}">
-            <FlexLayout Padding="5"
-                        Direction="Column">
+        <Frame Padding="-2"
+            BackgroundColor="{StaticResource CellLight}">
+            <FlexLayout 
+                Direction="Column">
 
                 <Label Text="{Binding Name}"
+                       Margin="5"
                        FontAttributes="Bold"
-                        FontSize="Default"
+                       FontSize="Default"
                        TextColor="{StaticResource WhiteColor}" />
 
-                <FlexLayout FlexLayout.Grow="3">
+                <FlexLayout FlexLayout.Grow="3" >
                     <Label Text="{Binding Var}"
                            FlexLayout.Grow="1"
+                           Margin="5"
                            TextColor="{StaticResource WhiteColor}"
                            FontAttributes="Bold"
-                            FontSize="Default"/>
+                           FontSize="Default" />
                     <Label Text="{Binding B}"
                            TextColor="{StaticResource WhiteColor}"
                            FontAttributes="Bold"
+                           Margin="5"
                            FlexLayout.Grow="1"
                            FontSize="Default" />
                     <Label Text="{Binding DT}"
                            TextColor="{StaticResource WhiteColor}"
                            FontAttributes="Bold"
+                           Margin="5"
                            FlexLayout.Grow="1"
-                            FontSize="Default"/>
+                           FontSize="Default" />
                 </FlexLayout>
                 <FlexLayout FlexLayout.Grow="4">
                     <Label Text="{Binding GT}"
                            TextColor="{StaticResource WhiteColor}"
                            FontAttributes="Bold"
+                           Margin="5"
                            FlexLayout.Grow="1"
-                         FontSize="Default" />
+                           FontSize="Default" />
                     <Label Text="{Binding NT}"
                            TextColor="{StaticResource WhiteColor}"
                            FontAttributes="Bold"
+                           Margin="5"
                            FlexLayout.Grow="1"
-                           FontSize="Default"/>
+                           FontSize="Default" />
                     <Label Text="{Binding BX}"
                            TextColor="{StaticResource WhiteColor}"
                            FontAttributes="Bold"
+                           Margin="5"
                            FlexLayout.Grow="1"
-                            FontSize="Default"/>
+                           FontSize="Default" />
                     <Label Text="{Binding MOG}"
                            TextColor="{StaticResource WhiteColor}"
                            FontAttributes="Bold"
+                           Margin="5"
                            FlexLayout.Grow="1"
                            FontSize="Default" />
                 </FlexLayout>

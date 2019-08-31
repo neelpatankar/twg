@@ -82,7 +82,7 @@ namespace TWG
         {
             AppCenter.Start("android=998b0002-7dc2-4891-8014-a06cc9f74a22;" +
                   "uwp={Your UWP App secret here};" +
-                  "ios={Your iOS App secret here}",
+                  "ios=d788d354-18d1-4a1d-82ee-8ed4573a3e0d;",
                   typeof(Analytics), typeof(Crashes));
             // Handle when your app starts
         }
